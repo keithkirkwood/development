@@ -1,6 +1,10 @@
 # Development
 
-Template project for development work, with VSCode/Codium workspace setup for Git, Python and Docker - and configured with npm packages for ESLint, Prettier, and MarkdownLint.
+Template project for development work:
+
+* VSCode workspace setup for Git, Python and Docker
+* Configured with npm packages for ESLint, Prettier, and MarkdownLint
+* Removed vale as this is not strictly required for development
 
 ## Usage
 
