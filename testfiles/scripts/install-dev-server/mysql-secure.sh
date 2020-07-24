@@ -11,7 +11,6 @@
 #  For details see documentation: http://dev.mysql.com/doc/refman/5.7/en/mysql-secure-installation.html
 #
 # @version 29.03.2019
-# Tested on Ubuntu 18.04 LTS by 3di-info
 #
 # Usage:
 #  Setup mysql root password:  ./mysql_secure.sh 'your_new_root_password'

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # --------------
-# 3di TechX - Keith Kirkwood
+# Keith Kirkwood
 #
 # Installation script for internal development server - set configuration in the dev-server-config file
 # Some minimum consideration given to security (GPG keys, generated hash salts, and WordPress settings)
@@ -58,7 +58,7 @@ install_webmin() {
 	# rm /tmp/virtualmin-install.sh
 	
 	# Open firewall for Webmin
-	# TBC create application profile
+	# TODO: create application profile
 	ufw allow 10000
 }
 
@@ -102,7 +102,7 @@ install_jenkins_local() {
 	check_install jenkins
 	
 	# Open firewall for Jenkins
-	# TBC create application profile
+	# TODO: create application profile
 	ufw allow 8080
 
 }
@@ -150,7 +150,7 @@ rm -f /etc/apache2/sites-available/$WP_DOMAIN.conf # !!
 cp ./templates/example.com.conf /etc/apache2/sites-available/$WP_DOMAIN.conf
 
 # Edit virtual host template file to use config variables (again use WP domain as basis)
-sed -i "s/\s*ServerAdmin\sadmin@example.com\s*/    ServerAdmin 3ditechx@3di-info.com/" /etc/apache2/sites-available/$WP_DOMAIN.conf
+sed -i "s/\s*ServerAdmin\sadmin@example.com\s*/    ServerAdmin kkirkwoo@gmail.com/" /etc/apache2/sites-available/$WP_DOMAIN.conf
 sed -i "s/\s*ServerName\sexample.com\s*/    ServerName $WP_DOMAIN/" /etc/apache2/sites-available/$WP_DOMAIN.conf
 sed -i "s/\s*ServerAlias\swww.example.com\s*/    ServerAlias www.$WP_DOMAIN/" /etc/apache2/sites-available/$WP_DOMAIN.conf
 sed -i "s/\s*DocumentRoot\s\/var\/www\/example.com\/html\s*/    DocumentRoot ${WP_PATH//\//\\/}/" /etc/apache2/sites-available/$WP_DOMAIN.conf

@@ -26,7 +26,7 @@ parser.add_option("-d", "--directory", dest="directory",
 parser.add_option("-e", "--extension", dest="extension",
                   metavar="EXT", default=EXTENSION,
                   help="extension for files with attributes to be processed")
-# TBC - add options for query and clean modes
+# TODO: - add options for query and clean modes
 
 (options, args) = parser.parse_args()
 
