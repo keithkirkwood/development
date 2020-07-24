@@ -20,7 +20,8 @@
         "**/*.yaml",
         "**/*.md",
         "**/*.markdown",
-        "**/*.py"
+        "**/*.py",
+        "**/*.sh"
     ],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
