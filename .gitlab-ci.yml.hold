@@ -1,0 +1,157 @@
+stages:
+    - Validate
+    - Build
+    - Test
+    - Release
+    - Deploy
+    - Promote
+
+variables:
+    COMPOSE_EXTRA_PARAMS: -p ${CI_PROJECT_NAME}-${CI_COMMIT_REF_SLUG}
+    REGISTRY_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}/${CI_COMMIT_REF_SLUG}
+
+validate prose:
+    stage: Validate
+    image:
+        name: jdkato/vale
+        entrypoint: [""]
+    # Temporarily allow this to fail
+    allow_failure: true
+    before_script:
+        - vale --version
+    script:
+        - vale content
+
+validate markdown:
+    stage: Validate
+    image:
+        name: 06kellyjac/markdownlint-cli
+        entrypoint: [""]
+    # Temporarily allow this to fail
+    allow_failure: true
+    before_script:
+        - markdownlint --version
+    script:
+        - markdownlint content
+
+build hugo project:
+    stage: Build
+    image:
+        name: klakegg/hugo:latest-ext
+        entrypoint: [""]
+    before_script:
+        - hugo version
+    script:
+        - hugo
+    tags:
+        - 3di-linux
+    artifacts:
+        paths:
+            - public
+
+test html output:
+    stage: Test
+    image:
+        name: klakegg/html-proofer
+        entrypoint: [""]
+    script:
+        - htmlproofer public --assume-extension --empty-alt-ignore
+    dependencies:
+        - build hugo project
+    tags:
+        - 3di-linux
+
+release nginx image:
+    stage: Release
+    image: docker:latest
+    services:
+        - docker:19.03.5-dind
+    script:
+        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+        - docker build --tag ${REGISTRY_IMAGE}:latest .
+        - docker push ${REGISTRY_IMAGE}:latest
+    after_script:
+        - docker image prune -f
+        - docker logout ${CI_REGISTRY}
+    dependencies:
+        - build hugo project
+    tags:
+        - 3di-linux
+
+.deploy to server:
+    stage: Deploy
+    script:
+        - docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY};
+        - docker-compose ${COMPOSE_EXTRA_PARAMS} pull
+        - docker-compose ${COMPOSE_EXTRA_PARAMS} down --remove-orphans
+        - ensure-nginx-proxy
+        - docker-compose ${COMPOSE_EXTRA_PARAMS} up -d
+    after_script:
+        - docker image prune -f
+        - docker logout ${CI_REGISTRY}
+
+deploy to auth:
+    extends: .deploy to server
+    stage: Deploy
+    except:
+        - master
+    variables:
+        PUBLIC_URL: ${CI_COMMIT_REF_SLUG}.${CI_PROJECT_NAME}.projects.3di-info.com
+    tags:
+        - 3di-webserver
+    environment:
+        name: auth/${CI_COMMIT_REF_SLUG}
+        on_stop: terminate auth
+        auto_stop_in: 1 week
+        url: https://${CI_COMMIT_REF_SLUG}.${CI_PROJECT_NAME}.projects.3di-info.com
+
+terminate auth:
+    stage: Deploy
+    except:
+        - master
+    when: manual
+    variables:
+        GIT_STRATEGY: none
+    script:
+        - docker-compose ${COMPOSE_EXTRA_PARAMS} down -v --remove-orphans
+    after_script:
+        - docker image prune -f
+    tags:
+        - 3di-webserver
+    environment:
+        name: auth/${CI_COMMIT_REF_SLUG}
+        action: stop
+
+deploy to staging:
+    extends: .deploy to server
+    stage: Deploy
+    only:
+        - master
+    when: manual
+    variables:
+        # Replace xxxx with correct customer subdomain and uncomment
+        # PUBLIC_URL: ${CI_PROJECT_NAME}-staging.xxxx.customer.3di-info.com
+    tags:
+        # Replace with correct tag for webserver runner and uncomment
+        #- 3di-webserver-xxxx
+    environment:
+        name: prod/staging
+        # Replace xxxx with correct customer subdomain and uncomment
+        # url: https://${CI_PROJECT_NAME}-staging.xxxx.customer.3di-info.com
+
+deploy to live:
+    extends: .deploy to server
+    stage: Promote
+    only:
+        - master
+    when: manual
+    variables:
+        # Replace xxxx with correct customer subdomain and uncomment
+        # PUBLIC_URL: ${CI_PROJECT_NAME}.xxxx.customer.3di-info.com
+    tags:
+        # Replace with correct tag for webserver runner and uncomment
+        #- 3di-webserver-xxxx
+    environment:
+        name: prod/live
+        # Replace xxxx with correct customer subdomain and uncomment
+        # url: https://${CI_PROJECT_NAME}.xxxx.customer.3di-info.com

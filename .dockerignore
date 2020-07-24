@@ -1,0 +1,15 @@
+.git
+.gitlab-ci.yml
+.gitattributes
+.gitignore
+.gitmodules
+.vale
+.vale.ini
+.vscode
+Dockerfile
+docker-compose.yml
+.eslintrc.yaml
+.markdownlint.yml
+.prettierrc.yml
+.prettierignore
+*.log

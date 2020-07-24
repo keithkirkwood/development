@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+    web:
+        image: ${REGISTRY_IMAGE}:latest
+        environment:
+            VIRTUAL_HOST: ${PUBLIC_URL}
+            LETSENCRYPT_HOST: ${PUBLIC_URL}
+            LETSENCRYPT_EMAIL: ${GITLAB_USER_EMAIL}
+        restart: unless-stopped
+        networks:
+            - proxy
+
+networks:
+    proxy:
+        external:
+            name: nginx-proxy

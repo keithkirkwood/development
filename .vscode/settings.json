@@ -1,0 +1,29 @@
+{
+    "workbench.iconTheme": "vscode-icons",
+    "python.pythonPath": "/usr/bin/python3",
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "git.enableSmartCommit": true,
+    "gitlens.defaultDateFormat": "Do MMMM, YYYY h:mma",
+    "gitlens.defaultDateShortFormat": "D MMM, YYYY",
+    "todohighlight.isEnable": true,
+    "todohighlight.include": [
+        "**/*.js",
+        "**/*.jsx",
+        "**/*.ts",
+        "**/*.tsx",
+        "**/*.html",
+        "**/*.php",
+        "**/*.css",
+        "**/*.scss",
+        "**/*.yml",
+        "**/*.yaml",
+        "**/*.md",
+        "**/*.markdown",
+        "**/*.py"
+    ],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "eslint.format.enable": false,
+    "yaml.format.enable": false
+}
