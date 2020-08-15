@@ -4,7 +4,6 @@
 
     // List of extensions which should be recommended for users of this workspace.
     "recommendations": [
-        "github.vscode-pull-request-github",
         "eamodio.gitlens",
         "yzhang.markdown-all-in-one",
         "davidanson.vscode-markdownlint",
