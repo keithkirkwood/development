@@ -14,7 +14,12 @@
     "dbaeumer.vscode-eslint",
     "ms-azuretools.vscode-docker",
     "ms-python.python",
-    "eg2.vscode-npm-script"
+    "eg2.vscode-npm-script",
+    "coenraads.bracket-pair-colorizer-2",
+    "streetsidesoftware.code-spell-checker",
+    "msjsdiag.debugger-for-chrome",
+    "firefox-devtools.vscode-firefox-debug",
+    "ritwickdey.liveserver"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": ["editorconfig.editorconfig"]
