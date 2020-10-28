@@ -17,10 +17,12 @@
     "coenraads.bracket-pair-colorizer",
     "aaron-bond.better-comments",
     "christian-kohler.path-intellisense",
+    "christian-kohler.npm-intellisense",
     "pranaygp.vscode-css-peek",
     "msjsdiag.debugger-for-chrome",
     "firefox-devtools.vscode-firefox-debug",
-    "ritwickdey.liveserver"
+    "ritwickdey.liveserver",
+    "gruntfuggly.todo-tree"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": ["editorconfig.editorconfig"]

@@ -17,5 +17,10 @@
   "typescript.suggest.paths": false,
   "better-comments.multilineComments": true,
   "bracketPairColorizer.showBracketsInGutter": true,
-  "cSpell.language": "en-GB"
+  "cSpell.language": "en-GB",
+  "npm-intellisense.importES6": true,
+  "npm-intellisense.importQuotes": "'",
+  "npm-intellisense.importLinebreak": "\r\n",
+  "npm-intellisense.importDeclarationType": "const",
+  "npm-intellisense.scanDevDependencies": true
 }
