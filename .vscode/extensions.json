@@ -4,7 +4,7 @@
 
   // List of extensions which should be recommended for users of this workspace.
   "recommendations": [
-    "entepe85.gitlens",
+    "eamodio.gitlens",
     "yzhang.markdown-all-in-one",
     "davidanson.vscode-markdownlint",
     "esbenp.prettier-vscode",
