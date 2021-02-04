@@ -4,7 +4,6 @@
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
-  "python.linting.pydocstyleEnabled": true,
   "git.confirmSync": false,
   "git.autofetch": true,
   "git.enableSmartCommit": true,
@@ -17,6 +16,5 @@
   "typescript.suggest.paths": false,
   "better-comments.multilineComments": true,
   "bracketPairColorizer.showBracketsInGutter": true,
-  "npm-intellisense.scanDevDependencies": true,
   "cSpell.language": "en-GB"
 }
